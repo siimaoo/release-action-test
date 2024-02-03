@@ -27,11 +27,15 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Zip dist
+        run: |
+          zip -r dist.zip dist
+
       - name: Upload dist to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist
-          asset_name: dist
+          file: dist.zip
+          asset_name: dist.zip
           tag: ${{ github.ref }}
           overwrite: true
