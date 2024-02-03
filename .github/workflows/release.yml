@@ -32,7 +32,7 @@ jobs:
           name: Build
           path: dist
 
-      - run: zip -r build.zip dist/
+      - run: zip -r build.zip Build/
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "dist.zip"
