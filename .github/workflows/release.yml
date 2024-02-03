@@ -29,10 +29,10 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: Build
+          name: build
           path: dist
 
-      - run: zip -r build.zip Build/
+      - run: zip -r build.zip build
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "dist.zip"
