@@ -1,0 +1,37 @@
+name: Build and Deploy
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 8.14.0
+
+      - name: setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.14.x'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: pnpm build
+
+      - name: Upload dist to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/*
+          asset_name: dist
+          tag: ${{ github.ref }}
+          overwrite: true
