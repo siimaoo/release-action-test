@@ -27,12 +27,12 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: dist
+#      - uses: actions/upload-artifact@v3
+#        with:
+#          name: dist
+#          path: dist
 
-      - run: zip -r build.zip build
+      - run: zip -r build.zip dist
       - uses: ncipollo/release-action@v1
         with:
-          artifacts: "dist.zip"
+          artifacts: "build.zip"
