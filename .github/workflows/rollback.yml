@@ -1,10 +1,5 @@
 name: Rollback
-on:
-  workflow_dispatch:
-    inputs:
-      name:
-        description: "Release Version"
-        required: true
+on: workflow_dispatch
 
 jobs:
   rollback:
@@ -13,10 +8,14 @@ jobs:
       - name: checkout
         uses: actions/checkout@master
 
+      - name: Set output
+        id: vars
+        run: echo ::set-output name=short_ref::${GITHUB_REF#refs/*/}
+
       - name: Download Artifact
         uses: robinraju/release-downloader@v1.9
         with:
-          tag: ${{ github.event.inputs.name }}
+          tag: ${{ steps.vars.outputs.short_ref }}
           fileName: build.zip
           extract: true
 
