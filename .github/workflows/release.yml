@@ -36,11 +36,9 @@ jobs:
           name: build.zip
           path: build.zip
 
-      - name: Upload Release
-        uses: softprops/action-gh-release@v1
+      - name: Upload release artifacts
+        uses: Roang-zero1/github-upload-release-artifacts-action@v2
+        with:
+          args: "build.zip"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: build.zip
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
